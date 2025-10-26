@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "Z:\\andrex\\Dev\\Pendulums\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7D62872A-1A82-4BD8-AB33-4D7336112575}|Pendulum\\Pendulum.vcxproj|Z:\\andrex\\Dev\\Pendulums\\Pendulum\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7D62872A-1A82-4BD8-AB33-4D7336112575}|Pendulum\\Pendulum.vcxproj|solutionrelative:Pendulum\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "Z:\\andrex\\Dev\\Pendulums\\Pendulum\\main.cpp",
+              "RelativeDocumentMoniker": "Pendulum\\main.cpp",
+              "ToolTip": "Z:\\andrex\\Dev\\Pendulums\\Pendulum\\main.cpp",
+              "RelativeToolTip": "Pendulum\\main.cpp",
+              "ViewState": "AgIAADAAAAAAAAAAAAAcwD0AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-26T18:45:38.147Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
