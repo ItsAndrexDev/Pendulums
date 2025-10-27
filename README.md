@@ -1,6 +1,6 @@
-# 🌀 Double Pendulum Simulation
+# 🌀 Double & Single Pendulum Simulation
 
-A high-performance, **real-time double pendulum simulator** written in **C++17**, powered by **OpenGL**, **GLFW**, **GLEW**, and **Dear ImGui**.  
+A high-performance, **real-time double && single pendulum simulator** written in **C++17**, powered by **OpenGL**, **GLFW**, **GLEW**, and **Dear ImGui**.  
 This program visually demonstrates the **chaotic nature** of the double pendulum — one of the most fascinating examples of deterministic chaos in classical mechanics.
 
 ![preview](docs/preview.gif)
