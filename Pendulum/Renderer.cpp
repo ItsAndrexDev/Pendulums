@@ -20,11 +20,10 @@ void Renderer::drawCircle(float cx, float cy, float r, int segments)
     glEnd();
 }
 
-
 void Renderer::SetupImGuiStyle()
 {
     // Comfortable Dark Cyan style by SouthCraftX from ImThemes
-    ImGuiStyle& style = ImGui::GetStyle();
+    ImGuiStyle &style = ImGui::GetStyle();
 
     style.Alpha = 1.0f;
     style.DisabledAlpha = 1.0f;

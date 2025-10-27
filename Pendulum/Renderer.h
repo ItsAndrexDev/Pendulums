@@ -9,8 +9,8 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-
-namespace Renderer {
+namespace Renderer
+{
 	void drawLine(float x1, float y1, float x2, float y2);
 	void drawCircle(float cx, float cy, float r, int segments = 32);
 	void SetupImGuiStyle();
