@@ -23,9 +23,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
         std::cerr << "Failed to init GLFW!\n";
         return -1;
     }
-	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-    GLFWwindow *window = glfwCreateWindow(mode->width, mode->height, "Double Pendulum Simulation", monitor, nullptr);
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "Double Pendulum Simulation", monitor, nullptr);
     if (!window)
     {
         std::cerr << "Failed to create window!\n";
@@ -34,7 +34,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     }
 
     float aspect = static_cast<float>(mode->width) / static_cast<float>(mode->height);
-
 
     glfwMakeContextCurrent(window);
     glewInit();
@@ -46,11 +45,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     glMatrixMode(GL_MODELVIEW);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-
     // ----------- ImGui Setup -----------
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
     (void)io;
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -59,7 +57,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     // ----------- Simulation state -----------
 
     float lastTime = glfwGetTime();
-    const float physicsStep = 0.0002;
+
+    const float physicsStep = 0.001f;
+
+    std::vector<float> trailTimers;
+    trailTimers.reserve(128);
+
+    const float trailSample = 0.01f;
+
+    PendulumVec.reserve(128);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -67,15 +73,29 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
         float deltaTime = currentTime - lastTime;
         lastTime = currentTime;
 
+        if (trailTimers.size() != PendulumVec.size())
+        {
+            trailTimers.resize(PendulumVec.size(), 0.0f);
+        }
+
         // -------- Physics update ----------
         float t = deltaTime;
-        while (t > 0.0)
+        while (t > 0.0f)
         {
             float dtStep = std::min(physicsStep, t);
-            for (auto &s : PendulumVec)
+
+            for (size_t i = 0; i < PendulumVec.size(); ++i)
             {
-				s->update(damping, g, dtStep);
-				s->AddTrailPoint();
+                auto& s = PendulumVec[i];
+                if (!s) continue;
+                s->update(damping, g, dtStep);
+
+                trailTimers[i] += dtStep;
+                if (trailTimers[i] >= trailSample)
+                {
+                    trailTimers[i] = fmodf(trailTimers[i], trailSample);
+                    s->AddTrailPoint();
+                }
             }
             t -= dtStep;
         }
@@ -86,10 +106,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
         for (auto& state : PendulumVec)
         {
-			state->render();
+            if (state) state->render();
         }
-
-
 
         // -------- ImGui Frame ----------
         ImGui_ImplOpenGL3_NewFrame();
@@ -98,12 +116,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
         ImGui::Begin("Main Controls");
         if (ImGui::Button("Spawn Double Pendulum"))
-			PendulumVec.push_back(std::make_shared<DPendulum>(/*Thetas*/1.0f, 1.0f, /*Mass*/1.0f, 1.0f, /*Lengths*/0.6f, 0.4f));
-        if(ImGui::Button("Spawn Single Pendulum"))
+        {
+            PendulumVec.push_back(std::make_shared<DPendulum>(/*Thetas*/1.0f, 1.0f, /*Mass*/1.0f, 1.0f, /*Lengths*/0.6f, 0.4f));
+            trailTimers.push_back(0.0f);
+        }
+        if (ImGui::Button("Spawn Single Pendulum"))
+        {
             PendulumVec.push_back(std::make_shared<SPendulum>(/*Theta*/1.0f, /*Mass*/1.0f, /*Length*/0.5f));
+            trailTimers.push_back(0.0f);
+        }
         if (ImGui::Button("Delete All Pendulums"))
         {
             PendulumVec.clear();
+            trailTimers.clear();
         }
         ImGui::SliderInt("Max Trail", &maxTrail, 300, 50000);
 
@@ -126,11 +151,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
             g = 274.0f;
 
         ImGui::End();
-        for (size_t i = 0; i < PendulumVec.size(); i++)
-        {
-			PendulumVec[i]->drawUI(i, PendulumVec);
-        }
 
+        for (size_t i = 0; i < PendulumVec.size(); ++i)
+        {
+            PendulumVec[i]->drawUI(i, PendulumVec);
+        }
+        if (trailTimers.size() != PendulumVec.size())
+        {
+            trailTimers.resize(PendulumVec.size(), 0.0f);
+        }
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

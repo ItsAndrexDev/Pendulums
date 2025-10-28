@@ -9,6 +9,18 @@ void Renderer::drawLine(float x1, float y1, float x2, float y2)
     glEnd();
 }
 
+void Renderer::drawTrail(const std::vector<std::pair<float, float>>& points, float thickness)
+{
+    if (points.size() < 2)
+        return;
+	glLineWidth(thickness);
+    glBegin(GL_LINE_STRIP);
+    for (const auto& p : points)
+        glVertex2f(p.first, p.second);
+    glEnd();
+	glLineWidth(1.0f);
+}
+
 void Renderer::drawCircle(float cx, float cy, float r, int segments)
 {
     glBegin(GL_TRIANGLE_FAN);

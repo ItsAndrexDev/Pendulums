@@ -2,6 +2,7 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+#include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cmath>
@@ -12,6 +13,7 @@
 namespace Renderer
 {
 	void drawLine(float x1, float y1, float x2, float y2);
+	void drawTrail(const std::vector<std::pair<float, float>>& points, float thickness);
 	void drawCircle(float cx, float cy, float r, int segments = 32);
 	void SetupImGuiStyle();
 }

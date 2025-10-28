@@ -80,8 +80,7 @@ void DPendulum::render()
     Renderer::drawCircle(x1, y1, 0.03f);
     Renderer::drawCircle(x2, y2, 0.03f);
     glColor3f(0.2f, 0.7f, 0.2f);
-    for (std::pair<float, float>& p : this->trailPoints)
-        Renderer::drawCircle(p.first, p.second, 0.01f);
+    Renderer::drawTrail(this->trailPoints,5);
 }
 
 
