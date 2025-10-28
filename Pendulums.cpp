@@ -145,6 +145,7 @@ void SPendulum::drawUI(size_t index, std::vector<std::shared_ptr<PendulumLike>> 
 
     ImGui::Begin(("Single Pendulum " + std::to_string(index + 1)).c_str());
     ImGui::Checkbox(("Freeze Pendulum " + std::to_string(index + 1)).c_str(), &this->isFreezed);
+    ImGui::SliderInt("Max Trail", &this->maxTrail, 100, 5000);
     ImGui::Text("Pendulum %d Controls", (int)(index + 1));
     ImGui::Text("Pivoting");
     ImGui::SliderFloat("X Pivot", &this->px, -2.0f, 2.0f);
@@ -174,6 +175,7 @@ void SPendulum::drawUI(size_t index, std::vector<std::shared_ptr<PendulumLike>> 
 void DPendulum::drawUI(size_t index, std::vector<std::shared_ptr<PendulumLike>>& PendVec) {
     ImGui::Begin(("Double Pendulum " + std::to_string(index + 1)).c_str());
     ImGui::Checkbox(("Freeze Pendulum " + std::to_string(index + 1)).c_str(), &this->isFreezed);
+    ImGui::SliderInt("Max Trail", &this->maxTrail, 100, 5000);
     ImGui::Text("Pendulum %d Controls", (int)(index + 1));
     ImGui::Text("Pivoting");
     ImGui::SliderFloat("X Pivot", &this->px, -2.0f, 2.0f);

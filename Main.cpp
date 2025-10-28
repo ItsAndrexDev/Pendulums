@@ -11,7 +11,6 @@
 #define _USE_MATH_DEFINES
 
 std::vector<std::shared_ptr<PendulumLike>> PendulumVec = {};
-int maxTrail = 10000;
 
 float g = 9.807;
 float damping = 0.05f;
@@ -130,8 +129,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
             PendulumVec.clear();
             trailTimers.clear();
         }
-        ImGui::SliderInt("Max Trail", &maxTrail, 300, 50000);
-
+        
         ImGui::SliderFloat("Damping", &damping, 0.0f, 1.0f);
 
         ImGui::SliderFloat("Gravity", &g, 0.0f, 1000.f);

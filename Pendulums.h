@@ -30,7 +30,7 @@ struct PendulumLike
 
 
 protected:
-	int maxTrail = 10000;
+	int maxTrail = 300;
     float WrapAngle(float theta);
 };
 
