@@ -23,7 +23,8 @@ void DPendulum::AddTrailPoint()
 {
     float x2 = this->px + this->L1 * sin(this->theta1) + this->L2 * sin(this->theta2);
     float y2 = this->py - this->L1 * cos(this->theta1) - this->L2 * cos(this->theta2);
-    trailPoints.emplace_back(x2, y2);
+    if(!this->isFreezed)
+        trailPoints.emplace_back(x2, y2);
     if (trailPoints.size() > (size_t)maxTrail)
     {
         size_t excess = trailPoints.size() - (size_t)maxTrail;
@@ -118,7 +119,8 @@ void SPendulum::AddTrailPoint()
 {
     float x = this->px + this->L * sin(this->theta);
     float y = this->py - this->L * cos(this->theta);
-    trailPoints.emplace_back(x, y);
+	if (!this->isFreezed)
+        trailPoints.emplace_back(x, y);
     if (trailPoints.size() > (size_t)maxTrail)
     {
         size_t excess = trailPoints.size() - (size_t)maxTrail;

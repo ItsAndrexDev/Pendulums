@@ -15,7 +15,7 @@ enum PendulumTypes
 
 struct PendulumLike
 {
-    void setMaxTrail(int maxTrail) { maxTrail = this->maxTrail; }
+    void setMaxTrail(int maxTrail) { this->maxTrail = maxTrail; }
     virtual PendulumTypes getType() const { return UNDECLARED; };
     virtual void update(float damping, float g, float dt) = 0;
     virtual void reset() = 0;
