@@ -27,7 +27,7 @@ struct PendulumLike
     
     bool isFreezed = false;
     std::vector<std::pair<float, float>> trailPoints;
-
+    float px, py;
 
 protected:
 	int maxTrail = 300;
@@ -64,13 +64,12 @@ struct SPendulum : PendulumLike
     void render() override;
     void drawUI(size_t index, std::vector<std::shared_ptr<PendulumLike>>& PendVec) override;
     float theta;
-    float omega;
+    float omega = 0.0f;
     float m;
-    float px, py;
     float L;
-
+	float px = 0.0f, py = 0.0f;
     SPendulum(float theta_, float m_, float L_)
-        : theta(theta_), omega(0.0f), m(m_), px(0.0f), py(0.0f), L(L_)
+        : theta(theta_), m(m_), L(L_)
     {
     }
 };

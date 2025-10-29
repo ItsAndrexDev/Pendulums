@@ -15,6 +15,7 @@ std::vector<std::shared_ptr<PendulumLike>> PendulumVec = {};
 float g = 9.807;
 float damping = 0.05f;
 
+
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
     if (!glfwInit())
@@ -37,6 +38,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     glfwMakeContextCurrent(window);
     glewInit();
     glfwSwapInterval(1);
+
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

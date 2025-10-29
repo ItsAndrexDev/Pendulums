@@ -137,8 +137,8 @@ void SPendulum::render()
     glColor3f(0.3f, 0.3f, 1.0f);
     Renderer::drawCircle(x, y, 0.03f);
     glColor3f(0.2f, 0.7f, 0.2f);
-    for (std::pair<float, float>& p : this->trailPoints)
-        Renderer::drawCircle(p.first, p.second, 0.01f);
+    glColor3f(0.2f, 0.7f, 0.2f);
+    Renderer::drawTrail(this->trailPoints, 5);
 }
 
 void SPendulum::drawUI(size_t index, std::vector<std::shared_ptr<PendulumLike>> &PendVec) {
